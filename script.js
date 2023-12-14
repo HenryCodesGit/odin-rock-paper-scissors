@@ -1,3 +1,60 @@
+const playerScoreElement = document.querySelector('.player-score > .current-score');
+const cpuScoreElement = document.querySelector('.cpu-score > .current-score');
+
+const rock = document.querySelector('#rock');
+    rock.addEventListener('click', () => {
+        increment(checkWinner("rock", getComputerChoice()));
+    })
+const paper = document.querySelector('#paper');
+paper.addEventListener('click', () => {
+        increment(checkWinner("paper", getComputerChoice()));
+    })
+const scissors = document.querySelector('#scissors');
+scissors.addEventListener('click', () => {
+        increment(checkWinner("scissors", getComputerChoice()));
+    })
+
+
+    
+//Increments the score of the player who won. (1 - player, 0 - tie, -1 - cpu)
+function increment(val){
+    let newElement = document.createElement('p');
+    switch (val) {
+        case 1:
+            newScore = 
+            playerScoreElement.textContent = parseInt(playerScoreElement.textContent) + 1;
+            newElement.textContent = 'Player won!';
+            document.querySelector('body').appendChild(newElement);
+            break;
+        case -1:
+            cpuScoreElement.textContent = parseInt(cpuScoreElement.textContent) + 1;
+            newElement.textContent = 'CPU won!';
+            document.querySelector('body').appendChild(newElement);
+            break;
+        case 0:
+            newElement.textContent = 'It was a tie.';
+            document.querySelector('body').appendChild(newElement);
+            break;
+        default:
+            throw new Error('Invalid option. Only valid options are -1, 0, and 1');
+    }
+
+    if (parseInt(playerScoreElement.textContent) > 4){
+        newElement.textContent = 'Player won five games and is the overall winner!';
+
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
+    }
+
+    if (parseInt(cpuScoreElement.textContent) > 4){
+        newElement.textContent = 'CPU won five games and is the overall winner!';
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
+    }
+}
+
 function getComputerChoice(){
     switch (Math.floor(Math.random()*3)){
         case 2:
@@ -33,6 +90,10 @@ function checkWinner(playerSelection, computerSelection){
     }
 }
 
+
+
+/*
+
 function game(rounds){
     let playerScore = 0;
     let cpuScore = 0;
@@ -66,3 +127,5 @@ function game(rounds){
         console.log("It was a tie with a score of " + cpuScore + " each!");
     }
 }
+
+*/
